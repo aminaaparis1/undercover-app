@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16" />
+      <stop offset="100% " stop-color="#020617" />
+    </linearGradient>
+    <linearGradient id="maskGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a855f7" />
+      <stop offset="50%" stop-color="#6366f1" />
+      <stop offset="100%" stop-color="#06b6d4" />
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="15" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Fond arrondi style icône d'application moderne -->
+  <rect width="512" height="512" rx="115" fill="url(#bgGrad)" />
+
+  <!-- Halo lumineux central -->
+  <circle cx="256" cy="256" r="140" fill="#6366f1" opacity="0.15" filter="url(#glow)" />
+
+  <!-- Forme du Masque Stylé (Undercover) -->
+  <g filter="url(#glow)">
+    <path d="M 100 190 
+             C 160 170, 220 220, 256 240 
+             C 292 220, 352 170, 412 190 
+             C 440 200, 450 240, 420 270 
+             C 390 300, 330 330, 256 320 
+             C 182 330, 122 300, 92 270 
+             C 62 240, 72 200, 100 190 Z" 
+          fill="url(#maskGrad)" />
+  </g>
+
+  <!-- Yeux du masque (découpes épurées) -->
+  <path d="M 160 220 Q 200 210, 215 250 Q 180 250, 160 220 Z" fill="#090d16" opacity="0.9" />
+  <path d="M 352 220 Q 312 210, 297 250 Q 332 250, 352 220 Z" fill="#090d16" opacity="0.9" />
+</svg>
