@@ -1,4 +1,4 @@
-import { INITIAL_THEMES } from './database/words.js';
+import { INITIAL_THEMES } from './words.js';
 
 export default function handler(req, res) {
     // On récupère le thème via l'URL classique

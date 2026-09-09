@@ -1,56 +1,77 @@
-// api/custom-pair.js
+import { INITIAL_THEMES } from './words.js';
+
 const getCategoryByKeywords = (civil, undercover) => {
     const text = (civil + " " + undercover).toLowerCase();
-    const categories = {
-        nourriture: ["coca", "pepsi", "burger", "pizza", "café", "thé", "raclette", "fruit", "légume"],
-        pop_culture: ["harry", "potter", "marvel", "star", "film", "série", "jeu", "console"],
-        hardcore: ["temps", "vide", "néant", "confiance", "mémoire", "rêve", "liberté", "secret"],
-        vie_quotidienne: ["lit", "canapé", "ordinateur", "téléphone", "voiture", "maison"],
-        fun_soiree: ["soirée", "vodka", "bar", "karaoké", "alcool", "fête"]
-    };
-    for (const [cat, keywords] of Object.entries(categories)) {
-        if (keywords.some(word => text.includes(word))) return cat;
+    
+    // On parcourt les thèmes pour voir si un mot correspond
+    for (const [key, theme] of Object.entries(INITIAL_THEMES)) {
+        // On vérifie si un des mots de la paire du thème est présent dans le texte
+        const match = theme.pairs.some(p => 
+            text.includes(p.civil.toLowerCase()) || text.includes(p.undercover.toLowerCase())
+        );
+        if (match) return key;
     }
     return "autre";
 };
 
 export default async function handler(req, res) {
-    if (req.method !== 'POST') return res.status(405).json({ error: "Method not allowed" });
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+    if (req.method === 'OPTIONS') return res.status(200).end();
+    if (req.method !== 'POST') return res.status(405).json({ success: false, error: "Method not allowed" });
 
     const { civil, undercover } = req.body;
     const apiKey = process.env.GEMINI_API_KEY;
 
+    // Récupération des clés de catégories valides depuis words.js
+    const allowedCategories = Object.keys(INITIAL_THEMES);
+    const categoriesString = allowedCategories.join(", ");
+
     try {
         if (apiKey) {
-            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ 
-                    contents: [{ parts: [{ text: `Valide cette paire Undercover : ${civil} et ${undercover}. Réponds en JSON {"valid": true, "category": "...", "reason": "..."}` }] }] 
+                    contents: [{ parts: [{ 
+                        text: `Tu es le juge du jeu Undercover. Valide cette paire : Civil="${civil}", Infiltré="${undercover}".
+Règles :
+1. "valid": true si la paire est cohérente.
+2. "category": DOIT être l'une de ces valeurs exactes : ${categoriesString}.
+3. "reason": Explication courte (5 mots).
+Réponds UNIQUEMENT en JSON brut.` 
+                    }] }],
+                    generationConfig: { responseMimeType: "application/json" }
                 })
             });
-
-            if (!response.ok) {
-                const errorData = await response.json();
-                console.error("Erreur API Google :", errorData);
-                throw new Error("Erreur de communication avec l'IA");
-            }
-
+            
             const data = await response.json();
             
-            // Sécurité : on vérifie que la réponse contient bien ce qu'on attend
-            if (!data.candidates || !data.candidates[0].content.parts[0].text) {
-                throw new Error("Réponse de l'IA mal formée");
+            if (!response.ok || !data.candidates) {
+                return res.status(200).json({ success: true, valid: true, category: getCategoryByKeywords(civil, undercover), reason: "Validation locale" });
             }
 
-            const text = data.candidates[0].content.parts[0].text;
-            return res.status(200).json(JSON.parse(text));
+            let text = data.candidates[0].content.parts[0].text;
+            text = text.replace(/```json/g, '').replace(/```/g, '').trim();
+            let parsedData = JSON.parse(text);
+
+            // Sécurité : forcer la catégorie si l'IA délire
+            if (!allowedCategories.includes(parsedData.category)) {
+                parsedData.category = getCategoryByKeywords(civil, undercover);
+            }
+            
+            return res.status(200).json({ success: true, ...parsedData });
             
         } else {
-            res.status(200).json({ valid: true, category: getCategoryByKeywords(civil, undercover), reason: "Validation locale" });
+            return res.status(200).json({ 
+                success: true, valid: true, 
+                category: getCategoryByKeywords(civil, undercover), 
+                reason: "Validation locale" 
+            });
         }
     } catch (e) {
-        console.error("Détail de l'erreur :", e);
-        res.status(500).json({ success: false, error: e.message });
+        return res.status(500).json({ success: false, error: e.message });
     }
 }
