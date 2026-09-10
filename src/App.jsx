@@ -478,7 +478,7 @@ function App() {
 
                         <div className="text-center space-y-4">
                             <h1 className="text-4xl sm:text-5xl font-black tracking-tighter text-white">
-                                UNDERCOVER
+                                IMPOSTEUR
                             </h1>
                             <p className="text-slate-400 text-sm font-medium px-4 leading-relaxed max-w-[280px] mx-auto">
                                 Un téléphone. Un mot secret.<br/>
