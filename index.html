@@ -1,21 +1,32 @@
 <!doctype html>
 <html lang="fr">
-  <head>
-    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
-    <meta name="theme-color" content="#020617" />
-<link rel="apple-touch-icon" href="/logo.svg" />
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>Undercover - Premium</title>
-    <!-- FontAwesome pour de magnifiques icônes de jeux -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts pour un look premium et soigné -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
-  </head>
-  <body class="flex items-center justify-center min-h-screen p-0 sm:p-4 bg-slate-950 overflow-hidden">
-    <div id="root" class="w-full h-screen sm:h-auto flex justify-center items-center"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+<!-- Favicon standard -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cdefs%3E%3ClinearGradient id='bgGrad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23090d16'/%3E%3Cstop offset='100%25' stop-color='%23020617'/%3E%3C/linearGradient%3E%3ClinearGradient id='maskGrad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23a855f7'/%3E%3Cstop offset='50%25' stop-color='%236366f1'/%3E%3Cstop offset='100%25' stop-color='%2306b6d4'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='512' height='512' rx='115' fill='url(%23bgGrad)'/%3E%3Cpath d='M 100 190 C 160 170, 220 220, 256 240 C 292 220, 352 170, 412 190 C 440 200, 450 240, 420 270 C 390 300, 330 330, 256 320 C 182 330, 122 300, 92 270 C 62 240, 72 200, 100 190 Z' fill='url(%23maskGrad)'/%3E%3Cpath d='M 160 220 Q 200 210, 215 250 Q 180 250, 160 220 Z' fill='%23020617'/%3E%3Cpath d='M 352 220 Q 312 210, 297 250 Q 332 250, 352 220 Z' fill='%23020617'/%3E%3C/svg%3E" />
+<!-- Icône pour l'écran d'accueil iOS (iPhone/iPad) -->
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152.png" />
+<link rel="apple-touch-icon" sizes="167x167" href="/apple-touch-icon-167.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<!-- Manifest PWA (icônes Android / Dock Mac) -->
+<link rel="manifest" href="/manifest.json" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="theme-color" content="#020617" />
+<!-- Mode standalone iOS -->
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Undercover" />
+<title>Undercover - Premium</title>
+<!-- FontAwesome pour de magnifiques icônes de jeux -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<!-- Google Fonts pour un look premium et soigné -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body class="flex items-center justify-center min-h-screen p-0 sm:p-4 bg-slate-950 overflow-hidden">
+<div id="root" class="w-full h-screen sm:h-auto flex justify-center items-center"></div>
+<script type="module" src="/src/main.jsx"></script>
+</body>
 </html>
