@@ -137,7 +137,7 @@ function App() {
             const maxUndercover = Math.max(1, Math.floor((players.length - 1) / 3));
             let newUc = undercoverCount;
             
-            // Rabaisse automatiquement les infiltrés si on supprime des joueurs
+            // Rabaisse automatiquement les imposteurs si on supprime des joueurs
             if (undercoverCount > maxUndercover) {
                 newUc = maxUndercover;
                 setUndercoverCount(maxUndercover);
@@ -223,7 +223,7 @@ function App() {
 
     const handleRemoveUndercover = () => {
         if (undercoverCount <= 1) {
-            triggerAlert(`Il faut au minimum <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-emerald-500 font-black">1 Infiltré</span> pour lancer la partie !`, "Minimum Requis");
+            triggerAlert(`Il faut au minimum <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-emerald-500 font-black">1 Imposteur</span> pour lancer la partie !`, "Minimum Requis");
         } else {
             setUndercoverCount(undercoverCount - 1);
         }
@@ -558,7 +558,7 @@ function App() {
                                         />
                                     </div>
                                     <div className="space-y-2">
-                                        <label className="text-[10px] uppercase font-black tracking-widest text-slate-300 ml-2">Mot de l'Infiltré</label>
+                                        <label className="text-[10px] uppercase font-black tracking-widest text-slate-300 ml-2">Mot de l'Imposteur</label>
                                         <input 
                                             type="text" 
                                             placeholder="Ex: Pepsi" 
@@ -799,7 +799,7 @@ function App() {
                                         <i className="fa-solid fa-user-secret drop-shadow-md"></i>
                                     </div>
                                     <div className="z-10 flex flex-col items-center justify-center">
-                                        <p className="text-lg font-black text-white drop-shadow-md leading-tight">Infiltrés</p>
+                                        <p className="text-lg font-black text-white drop-shadow-md leading-tight">Imposteur</p>
                                         <p className="text-[11px] text-white/90 font-bold mt-1 px-1 leading-tight uppercase tracking-wider">Mot alternatif</p>
                                     </div>
                                     <div className="flex items-center justify-between w-full bg-white/10 backdrop-blur-md p-1.5 rounded-2xl border border-white/20 z-10 shrink-0 shadow-inner">
@@ -984,7 +984,7 @@ function App() {
                             
                             const icon = isCivil ? 'fa-user' : isUndercover ? 'fa-user-secret' : 'fa-masks-theater';
                             const iconColor = isCivil ? 'text-teal-500' : isUndercover ? 'text-orange-500' : 'text-red-500';
-                            const roleName = isCivil ? 'Civil' : isUndercover ? 'Infiltré' : 'Mr. White';
+                            const roleName = isCivil ? 'Civil' : isUndercover ? 'Imposteur' : 'Mr. White';
 
                             return (
                                 <div className={`relative overflow-hidden bg-gradient-to-br ${bgTheme} rounded-[32px] p-8 shadow-2xl border-t border-white/50 border-x border-white/20 before:absolute before:inset-0 before:bg-gradient-to-b before:from-white/30 before:to-transparent before:h-1/2 animate-scale-up`}>
@@ -1077,7 +1077,7 @@ function App() {
                                 </div>
                                 <div>
                                     <h2 className="text-3xl font-black text-white drop-shadow-md tracking-tight mb-1">
-                                        {winner === 'civilians' ? 'Victoire des Civils !' : 'Victoire des Infiltrés !'}
+                                        {winner === 'civilians' ? 'Victoire des Civils !' : 'Victoire des Imposteurs !'}
                                     </h2>
                                     <p className="text-white/90 text-sm font-bold mt-1 drop-shadow-sm">
                                         {winner === 'civilians' ? 'Le secret est resté bien gardé.' : 'Le bluff a parfaitement fonctionné.'}
@@ -1104,7 +1104,7 @@ function App() {
                                             <div className="flex flex-col z-10 overflow-hidden text-left flex-1">
                                                 <span className={`font-black text-[13px] truncate drop-shadow-md ${p.isEliminated ? 'text-white/60 line-through' : 'text-white'}`}>{p.name}</span>
                                                 <span className="text-[10px] font-black text-white/90 uppercase tracking-widest mt-0.5 drop-shadow-md">
-                                                    {p.role === 'civilian' ? 'Civil' : p.role === 'undercover' ? 'Infiltré' : 'Mr. White'}
+                                                    {p.role === 'civilian' ? 'Civil' : p.role === 'undercover' ? 'Imposteur' : 'Mr. White'}
                                                 </span>
                                             </div>
                                         </div>
